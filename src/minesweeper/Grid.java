@@ -1,10 +1,9 @@
 package minesweeper;
 
-import java.util.ArrayList;
-
 public abstract class Grid {
 		
 	private int xSize=10;
+
 	private int ySize=10;
 	
 	public Grid() {};
@@ -15,25 +14,25 @@ public abstract class Grid {
 		this.ySize = ySize;
 	}
 	
-	public int getxSize() {
+	public int getXSize() {
 		return xSize;
 	}
 
-	public void setxSize(int xSize) {
+	public void setXSize(int xSize) {
 		this.xSize = xSize;
 	}
 
-	public int getySize() {
+	public int getYSize() {
 		return ySize;
 	}
 
-	public void setySize(int ySize) {
+	public void setYSize(int ySize) {
 		this.ySize = ySize;
 	}
 	
 	public abstract Cell[][] createCells();
+	
 	public abstract Cell[][] getCells();
-	
-	
+
 
 }

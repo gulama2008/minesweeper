@@ -39,9 +39,9 @@ public class EmptyGrid extends Grid{
 
 	@Override
 	public Cell[][] createCells() {
-		Cell[][] cells=new Cell[this.getxSize()][this.getySize()];
-		for(int i=1;i<=this.getxSize();i++) {
-			for(int j=1;j<=this.getySize();j++) {
+		Cell[][] cells=new Cell[this.getXSize()][this.getYSize()];
+		for(int i=1;i<=this.getXSize();i++) {
+			for(int j=1;j<=this.getYSize();j++) {
 				Cell cell= new Cell(i,j);
 				cell.setContent("__|");
 				cells[i-1][j-1]=cell;

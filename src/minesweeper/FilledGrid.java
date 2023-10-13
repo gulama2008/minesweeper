@@ -110,9 +110,9 @@ public class FilledGrid extends Grid{
 	
 	@Override
 	public Cell[][] createCells() {
-		Cell[][] cells=new Cell[this.getxSize()][this.getySize()];
-		for(int i=1;i<=this.getxSize();i++) {
-			for(int j=1;j<=this.getySize();j++) {
+		Cell[][] cells=new Cell[this.getXSize()][this.getYSize()];
+		for(int i=1;i<=this.getXSize();i++) {
+			for(int j=1;j<=this.getYSize();j++) {
 				Cell cell= new Cell(i,j);
 				if(this.bombs.contains(i+"-"+j)) {
 					cell.setContent("x");
@@ -161,9 +161,6 @@ public class FilledGrid extends Grid{
 
 	public void setAllCells(ArrayList<Cell> allCells) {
 		this.allCells = allCells;
-	}
-
-	
-	
+	}	
 	
 }
