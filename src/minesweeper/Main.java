@@ -6,8 +6,9 @@ import java.util.Scanner;
 import pojo.Cell;
 import pojo.EmptyGrid;
 import pojo.FilledGrid;
-import services.CreateEmptyCells;
-import services.CreateFilledCells;
+import pojo.UserInputCoords;
+import services.EmptyCellsGenerator;
+import services.FilledCellsGenerator;
 import services.GameService;
 
 public class Main {
@@ -19,20 +20,19 @@ public class Main {
 		EmptyGrid emptyGrid=new EmptyGrid();
 		FilledGrid filledGrid=new FilledGrid();
 		
-		Cell[][] cellsForEmptyGrid=CreateEmptyCells.createCells(emptyGrid);
+		Cell[][] cellsForEmptyGrid=EmptyCellsGenerator.createCells(emptyGrid);
 		emptyGrid.setCells(cellsForEmptyGrid);
 		
-		Cell[][] cellsForFilledGrid=CreateFilledCells.createCells(filledGrid);
+		Cell[][] cellsForFilledGrid=FilledCellsGenerator.createCells(filledGrid);
 		filledGrid.setCells(cellsForFilledGrid);
 		
-		Integer xCoordNumber=0;
-		Integer yCoordNumber=0;
+		UserInputCoords userInputCoords=new UserInputCoords(0, 0);
 		
 		GameService gameService=new GameService();
 		
 		gameService.initializeGame(scanner);
 		gameService.showGrid(emptyGrid);
-		gameService.playGame(filledGrid, emptyGrid, xCoordNumber, yCoordNumber, scanner);				
+		gameService.playGame(filledGrid, emptyGrid, userInputCoords, scanner);				
 	
 	}
 

@@ -3,7 +3,7 @@ package services;
 import pojo.Cell;
 import pojo.FilledGrid;
 
-public class CreateFilledCells {
+public class FilledCellsGenerator {
 	
 	public static Cell[][] createCells(FilledGrid filledGrid) {
 		Cell[][] cells=new Cell[filledGrid.getXSize()][filledGrid.getYSize()];

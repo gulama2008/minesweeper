@@ -3,7 +3,7 @@ package services;
 import pojo.Cell;
 import pojo.EmptyGrid;
 
-public class CreateEmptyCells {
+public class EmptyCellsGenerator {
 	
 	public static Cell[][] createCells(EmptyGrid emptyGrid) {
 		Cell[][] cells=new Cell[emptyGrid.getXSize()][emptyGrid.getYSize()];

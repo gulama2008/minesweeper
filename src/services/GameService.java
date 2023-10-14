@@ -7,6 +7,7 @@ import pojo.Cell;
 import pojo.EmptyGrid;
 import pojo.FilledGrid;
 import pojo.Grid;
+import pojo.UserInputCoords;
 
 public class GameService {
 	
@@ -47,37 +48,30 @@ public class GameService {
 		System.out.println();
 	}
 	
-//	public void handleInvalidInput(int coordinate,Scanner scanner) {
-//		while (coordinate>10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			coordinate=scanner.nextInt();
-//		}
-//	}
 	
-	public void handleUserInputXCordinate(int coordNumber,Scanner scanner,String direction) {
-		System.out.println("please enter the "+direction+" coordinate: ");
-		coordNumber=scanner.nextInt();
-		while (coordNumber>10) {
+	public void handleUserInputCordinates(UserInputCoords userInputCoords,Scanner scanner) {
+		System.out.println("please enter the X coordinate: ");
+		userInputCoords.setxCoordNumber(scanner.nextInt());
+		while (userInputCoords.getxCoordNumber()>10) {
 			System.out.println("Coordinate must be between 1-10, please re-enter");
-			coordNumber=scanner.nextInt();
+			userInputCoords.setxCoordNumber(scanner.nextInt());
 		}
-		System.out.println(coordNumber);
+		System.out.println("please enter the Y coordinate: ");
+		userInputCoords.setyCoordNumber(scanner.nextInt());
+		while (userInputCoords.getyCoordNumber()>10) {
+			System.out.println("Coordinate must be between 1-10, please re-enter");
+			userInputCoords.setyCoordNumber(scanner.nextInt());
+		}
+//		System.out.println(userInputCoords);
 	}
 
-	public void playGame(FilledGrid filledGrid,EmptyGrid emptyGrid, int xCoordNumber,int yCoordNumber,Scanner scanner) {
+	public void playGame(FilledGrid filledGrid,EmptyGrid emptyGrid, UserInputCoords userInputCoords,Scanner scanner) {
 			ArrayList<Cell> allCells=filledGrid.getAllCells();
 			int leftLengthOfFilledGrid=allCells.size();
 			while (leftLengthOfFilledGrid>10) {
-//				System.out.println("please enter the x coordinate: ");
-//				xCoordNumber=scanner.nextInt();
-				handleUserInputXCordinate(xCoordNumber, scanner, "x");
-//				System.out.println("please enter the y coordinate: ");
-//				yCoordNumber=scanner.nextInt();
-				handleUserInputXCordinate(yCoordNumber, scanner, "y");
-				System.out.println(xCoordNumber);
-				System.out.println(yCoordNumber);
-				String viewContent =filledGrid.getCells()[yCoordNumber-1][xCoordNumber-1].getContent();
-				emptyGrid.getCells()[yCoordNumber-1][xCoordNumber-1].setContent("_"+viewContent+"|");
+				handleUserInputCordinates(userInputCoords, scanner);
+				String viewContent =filledGrid.getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].getContent();
+				emptyGrid.getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].setContent("_"+viewContent+"|");
 				if(viewContent.equals("x")) {
 					System.out.println("GameService Over!");
 					showGrid(filledGrid);
