@@ -1,4 +1,5 @@
-package minesweeper;
+package pojo;
+
 
 public class Cell {
 	
