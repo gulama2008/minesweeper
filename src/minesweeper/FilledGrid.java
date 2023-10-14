@@ -58,56 +58,6 @@ public class FilledGrid extends Grid{
 		this.cells=createCells();
 	}
 	
-//	public ArrayList<Cell> getCells(){
-//		return this.cells;
-//	}
-	
-	
-	
-//	public ArrayList<Cell> createCells() {
-//		ArrayList<Cell> cells=new ArrayList<Cell>();
-//		for(int i=1;i<=this.xSize;i++) {
-//			for(int j=1;j<=this.ySize;j++) {
-//				Cell cell= new Cell(i,j);
-//				if(this.bombs.contains(i+"-"+j)) {
-//					cell.setContent("x");
-//					cells.add(cell);
-//					continue;
-//				}
-//				int k=0;
-//				if(this.bombs.contains((i-1)+"-"+(j-1))) {
-//					k++;
-//				}
-//				if(this.bombs.contains(i+"-"+(j-1))) {
-//					k++;
-//				}
-//				if(this.bombs.contains((i+1)+"-"+(j-1))) {
-//					k++;
-//				}
-//				if(this.bombs.contains((i-1)+"-"+j)) {
-//					k++;
-//				}
-//				if(this.bombs.contains((i+1)+"-"+j)) {
-//					k++;
-//				}
-//				if(this.bombs.contains((i-1)+"-"+(j+1))) {
-//					k++;
-//				}
-//				if(this.bombs.contains(i+"-"+(j+1))) {
-//					k++;
-//				}
-//				if(this.bombs.contains((i+1)+"-"+(j+1))) {
-//					k++;
-//				}
-//				cell.setContent(k+"");
-////				System.out.println(cell);
-//				cells.add(cell);
-//				
-//			}
-//		}
-//		return cells;
-//	}
-	
 	@Override
 	public Cell[][] createCells() {
 		Cell[][] cells=new Cell[this.getXSize()][this.getYSize()];
