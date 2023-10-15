@@ -73,8 +73,8 @@ public class GameService {
 		while (leftLengthOfFilledGrid>10) {
 			validateUserInputCordinates(userInputCoords, scanner);
 			String viewContent =gameData.getFilledGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].getContent();
-			gameData.getEmptyGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].setContent("_"+viewContent+"|");
-			if(viewContent.equals("x")) {
+			gameData.getEmptyGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].setContent(viewContent);
+			if(viewContent.equals("_x|")) {
 				System.out.println("Game Over!");
 				showGrid(gameData.getFilledGrid());
 				return;
