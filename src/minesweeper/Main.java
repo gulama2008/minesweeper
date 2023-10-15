@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import pojo.Cell;
 import pojo.EmptyGrid;
+import pojo.ExitGameController;
 import pojo.FilledGrid;
+import pojo.GameData;
 import pojo.UserInputCoords;
 import services.EmptyCellsGenerator;
 import services.FilledCellsGenerator;
@@ -17,23 +19,17 @@ public class Main {
 		
 		Scanner scanner=new Scanner(System.in);
 		
-		EmptyGrid emptyGrid=new EmptyGrid();
-		FilledGrid filledGrid=new FilledGrid();
-		
-		Cell[][] cellsForEmptyGrid=EmptyCellsGenerator.createCells(emptyGrid);
-		emptyGrid.setCells(cellsForEmptyGrid);
-		
-		Cell[][] cellsForFilledGrid=FilledCellsGenerator.createCells(filledGrid);
-		filledGrid.setCells(cellsForFilledGrid);
+		GameData gameData=new GameData(new EmptyGrid(), new FilledGrid());
 		
 		UserInputCoords userInputCoords=new UserInputCoords(0, 0);
 		
 		GameService gameService=new GameService();
 		
-		gameService.initializeGame(scanner);
-		gameService.showGrid(emptyGrid);
-		gameService.playGame(filledGrid, emptyGrid, userInputCoords, scanner);				
-	
+		ExitGameController exitGameController=new ExitGameController(false);
+		
+		gameService.playGame(gameData, userInputCoords, scanner, exitGameController);
+
+
 	}
 
 }

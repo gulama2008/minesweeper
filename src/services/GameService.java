@@ -2,10 +2,13 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.StreamHandler;
 
 import pojo.Cell;
 import pojo.EmptyGrid;
+import pojo.ExitGameController;
 import pojo.FilledGrid;
+import pojo.GameData;
 import pojo.Grid;
 import pojo.UserInputCoords;
 
@@ -49,7 +52,7 @@ public class GameService {
 	}
 	
 	
-	public void handleUserInputCordinates(UserInputCoords userInputCoords,Scanner scanner) {
+	public void validateUserInputCordinates(UserInputCoords userInputCoords,Scanner scanner) {
 		System.out.println("please enter the X coordinate: ");
 		userInputCoords.setxCoordNumber(scanner.nextInt());
 		while (userInputCoords.getxCoordNumber()>10) {
@@ -62,26 +65,50 @@ public class GameService {
 			System.out.println("Coordinate must be between 1-10, please re-enter");
 			userInputCoords.setyCoordNumber(scanner.nextInt());
 		}
-//		System.out.println(userInputCoords);
 	}
+	
 
-	public void playGame(FilledGrid filledGrid,EmptyGrid emptyGrid, UserInputCoords userInputCoords,Scanner scanner) {
-			ArrayList<Cell> allCells=filledGrid.getAllCells();
-			int leftLengthOfFilledGrid=allCells.size();
-			while (leftLengthOfFilledGrid>10) {
-				handleUserInputCordinates(userInputCoords, scanner);
-				String viewContent =filledGrid.getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].getContent();
-				emptyGrid.getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].setContent("_"+viewContent+"|");
-				if(viewContent.equals("x")) {
-					System.out.println("GameService Over!");
-					showGrid(filledGrid);
-					return;
-				}
-				showGrid(emptyGrid);
-				leftLengthOfFilledGrid-=1;
+	public void processUserInput(GameData gameData,UserInputCoords userInputCoords,Scanner scanner) {
+		int leftLengthOfFilledGrid=gameData.getFilledGrid().getXSize()*gameData.getFilledGrid().getYSize();
+		while (leftLengthOfFilledGrid>10) {
+			validateUserInputCordinates(userInputCoords, scanner);
+			String viewContent =gameData.getFilledGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].getContent();
+			gameData.getEmptyGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].setContent("_"+viewContent+"|");
+			if(viewContent.equals("x")) {
+				System.out.println("Game Over!");
+				showGrid(gameData.getFilledGrid());
+				return;
 			}
-			System.out.println("Congratulations! You Won!");
-			showGrid(filledGrid);	
+				showGrid(gameData.getEmptyGrid());
+				leftLengthOfFilledGrid-=1;
 		}
+		System.out.println("Congratulations! You Won!");
+		showGrid(gameData.getFilledGrid());
+	}
+	
+	public void continueGameOrNot(Scanner scanner, ExitGameController exitGameController) {
+		System.out.println("Do you want to play another game? Y/N");
+		String userChoice=scanner.next().toUpperCase();
+		if(userChoice.equals("N")){
+			exitGameController.setIsExitGame(true);
+		};	
+	}
+	
+	
+	public void playGame(GameData gameData, UserInputCoords userInputCoords,Scanner scanner,ExitGameController exitGameController) {
+		initializeGame(scanner);		
+		while (!exitGameController.getIsExitGame()) {
+			gameData.setEmptyGrid(new EmptyGrid());
+			gameData.setFilledGrid(new FilledGrid());
+			gameData.setEmptyGridCells();
+			gameData.setFilledGridCells();
+			showGrid(gameData.getEmptyGrid());
+			processUserInput(gameData, userInputCoords, scanner);
+			continueGameOrNot(scanner, exitGameController);		
+		}
+		System.out.println("Thanks for playing!");
+		return;
+	}
+			
 
 }
