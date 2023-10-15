@@ -1,10 +1,12 @@
-package minesweeper;
+package pojo;
 
 public abstract class Grid {
 		
 	private int xSize=10;
 
 	private int ySize=10;
+	
+	
 	
 	public Grid() {};
 	
@@ -30,7 +32,7 @@ public abstract class Grid {
 		this.ySize = ySize;
 	}
 	
-	public abstract Cell[][] createCells();
+//	public abstract Cell[][] createCells();
 	
 	public abstract Cell[][] getCells();
 
