@@ -25,41 +25,75 @@ public class GameService {
 	}
 	
 		
+//	public void showGrid(Grid grid) {	
+//		for(int i=0;i<=10;i++) {
+//			for(int j=0;j<=10;j++) {
+//				if(i==0) {
+//					if (j==0) {
+//						System.out.print(Utils.formatString(" "));
+//					}else if (j==10) {
+//						System.out.println(Utils.formatString("_10"));
+//					}else {
+//						System.out.print(Utils.formatString("_"+j+"_"));
+//					}
+//					continue;
+//				}else {
+//					if(j==0) {
+//						System.out.print(Utils.formatString(i+"|"));
+//					}else if (j==10) {
+//						if (" ".equals(grid.getCells()[i-1][j-1].getContent())) {
+//							System.out.println(Utils.formatString("__|"));
+//							
+//						}else {
+//							System.out.println(Utils.formatString("_"+grid.getCells()[i-1][j-1].getContent()+"|"));
+//						}
+//						
+//					}else {
+//						if (" ".equals(grid.getCells()[i-1][j-1].getContent())) {
+//							System.out.print(Utils.formatString("__|"));
+//							
+//						}else {
+//							System.out.print(Utils.formatString("_"+grid.getCells()[i-1][j-1].getContent()+"|"));
+//						}
+//					}
+//				}
+//			}
+//		}
+//		System.out.println();
+//	}
+	
 	public void showGrid(Grid grid) {	
-		for(int i=0;i<=10;i++) {
-			for(int j=0;j<=10;j++) {
-				if(i==0) {
-					if (j==0) {
-						System.out.print(Utils.formatString(" "));
-					}else if (j==10) {
-						System.out.println(Utils.formatString("_10"));
-					}else {
-						System.out.print(Utils.formatString("_"+j+"_"));
-					}
-					continue;
-				}else {
-					if(j==0) {
-						System.out.print(Utils.formatString(i+"|"));
-					}else if (j==10) {
-						if (" ".equals(grid.getCells()[i-1][j-1].getContent())) {
-							System.out.println(Utils.formatString("__|"));
-							
-						}else {
-							System.out.println(Utils.formatString("_"+grid.getCells()[i-1][j-1].getContent()+"|"));
-						}
-						
-					}else {
-						if (" ".equals(grid.getCells()[i-1][j-1].getContent())) {
-							System.out.print(Utils.formatString("__|"));
-							
-						}else {
-							System.out.print(Utils.formatString("_"+grid.getCells()[i-1][j-1].getContent()+"|"));
-						}
-					}
-				}
-			}
-		}
-		System.out.println();
+		int rows = 10;
+        int columns = 10;
+
+        for (int i = 0; i <= rows; i++) {
+        	if(i==0) {
+        		System.out.print(Utils.formatString("  "));
+        		for(int j=1;j<10;j++) {
+        			System.out.print(" "+j+"  ");
+        		}
+        		System.out.println(" 10 ");
+        		System.out.print(Utils.formatString("  +"));
+        		for(int j=1;j<10;j++) {
+        			System.out.print("---+");
+        		}
+        		System.out.println("---+");
+        	}else {
+        		System.out.print(Utils.formatString(i+" |"));
+        		for(int j=1;j<10;j++) {
+        			System.out.print(" "+grid.getCells()[i-1][j-1].getContent()+" |");
+        		}
+        		System.out.println(" "+grid.getCells()[i-1][9].getContent()+" |");
+        		System.out.print(Utils.formatString("  +"));
+        		for(int j=1;j<10;j++) {
+        			System.out.print("---+");
+        		}
+        		System.out.println("---+");
+        	}
+        	
+           
+        }
+        
 	}
 	
 	
@@ -98,13 +132,14 @@ public class GameService {
 			showGrid(gameData.getEmptyGrid());
 		}
 		System.out.println("Congratulations! You Won!");
-//		showGrid(gameData.getFilledGrid());
+		showGrid(gameData.getFilledGrid());
 	}
 	
 //	public void cascadingNoBombCell(GameData gameData, UserInputCoords userInputCoords) {
 	public void cascadingNoBombCell(GameData gameData, int currentXCoordinate,int currentYCoordinate) {	
 		String viewContent =gameData.getFilledGrid().getCells()[currentYCoordinate-1][currentXCoordinate-1].getContent();
 		gameData.getEmptyGrid().getCells()[currentYCoordinate-1][currentXCoordinate-1].setContent(viewContent);
+		gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
 //		if(viewContent.equals("x")) {
 //			System.out.println("Game Over!");
 //			showGrid(gameData.getFilledGrid());
@@ -112,7 +147,7 @@ public class GameService {
 //		}
 		
 		if("0".equals(viewContent)) {
-			gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
+//			gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
 				if(currentYCoordinate-1>=0&&currentXCoordinate-2>=0&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate-1][currentXCoordinate-2].getContent()) ) {
 					cascadingNoBombCell(gameData, currentXCoordinate-1, currentYCoordinate);
 				}
@@ -142,7 +177,8 @@ public class GameService {
 				}		
 
 		}else {
-			gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
+//			gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
+			return;
 			
 		}
 		

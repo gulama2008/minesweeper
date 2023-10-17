@@ -28,6 +28,13 @@ public class Main {
 		ExitGameController exitGameController=new ExitGameController(false);
 		
 		gameService.playGame(gameData, userInputCoords, scanner, exitGameController);
+//		EmptyGrid emptyGrid=new EmptyGrid();
+//		FilledGrid filledGrid=new FilledGrid();
+		
+		
+//		gameService.showGrid(gameData.getEmptyGrid());
+//		gameService.showGrid(gameData.getFilledGrid());
+
 
 
 	}
