@@ -28,48 +28,41 @@ public class GameService {
 	public void showGrid(Grid grid) {
 		int rows = 10;
 		int columns = 10;
+		String RESET = "\u001B[0m";
+        String RED_TEXT = "\u001B[31m";
+        String GREEN_TEXT = "\u001B[32m";
+        String YELLOW_TEXT = "\u001B[33m";
+        String BLACK_BG = "\u001B[40m";
+        String WHITE_BG = "\u001B[47m";
+        String BRIGHT_BLACK_TEXT="\u001b[30;1m";
+        String bRIGHT_BLUE_TEXTString="\u001b[34;1m"; 
 
 		for (int i = 0; i <= rows; i++) {
 			if (i == 0) {
-				System.out.print(Utils.formatString("  "));
+				System.out.print(GREEN_TEXT + WHITE_BG+Utils.formatString("  ")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print(" " + j + "  ");
+					System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+" " + j + "  "+ RESET);
 				}
-				System.out.println(" 10 ");
-				System.out.print(Utils.formatString("  +"));
+				System.out.println(BRIGHT_BLACK_TEXT + WHITE_BG+" 10  "+ RESET);
+				System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+Utils.formatString("  +")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print("---+");
+					System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+"---+"+ RESET);
 				}
-				System.out.println("---+");
+				System.out.println(BRIGHT_BLACK_TEXT + WHITE_BG+"---+ "+ RESET);
 			} else {
-				System.out.print(Utils.formatString(i + " |"));
+				System.out.print(BRIGHT_BLACK_TEXT+ WHITE_BG+Utils.formatString(i + " |")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print(" " + grid.getCells()[i - 1][j - 1].getContent() + " |");
+					System.out.print(GREEN_TEXT + WHITE_BG+" " + grid.getCells()[i - 1][j - 1].getContent() + BRIGHT_BLACK_TEXT+" |"+ RESET);
 				}
-				System.out.println(" " + grid.getCells()[i - 1][9].getContent() + " |");
-				System.out.print(Utils.formatString("  +"));
+				System.out.println(GREEN_TEXT + WHITE_BG+" " + grid.getCells()[i - 1][9].getContent() + BRIGHT_BLACK_TEXT+" | "+ RESET);
+				System.out.print(BRIGHT_BLACK_TEXT+ WHITE_BG+Utils.formatString("  +")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print("---+");
+					System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+"---+"+ RESET);
 				}
-				System.out.println("---+");
+				System.out.println(BRIGHT_BLACK_TEXT + WHITE_BG+"---+ "+ RESET);
 			}
 		}
 	}
-
-//	public void validateUserInputCordinates(UserInputCoords userInputCoords, Scanner scanner) {
-//		System.out.println("please enter the X coordinate: ");
-//		userInputCoords.setxCoordNumber(scanner.nextInt());
-//		while (userInputCoords.getxCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setxCoordNumber(scanner.nextInt());
-//		}
-//		System.out.println("please enter the Y coordinate: ");
-//		userInputCoords.setyCoordNumber(scanner.nextInt());
-//		while (userInputCoords.getyCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setyCoordNumber(scanner.nextInt());
-//		}
-//	}
 	
 	public void validateUserInputCordinates(UserInputCoords userInputCoords, Scanner scanner) {
 		int xCoordinateInput;
@@ -106,32 +99,8 @@ public class GameService {
 				scanner.next();
 			}
 		} while (yDone == false);
-//		userInputCoords.setxCoordNumber(xCoordinate);
-//		while((!scanner.hasNextInt())||scanner.nextInt() > 10||scanner.nextInt() < 1) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			scanner.nextInt();
-//			System.out.println("test1");
-		}
-//		System.out.println("test2");
-//		int xCoordinateInput=scanner.nextInt();
-//		System.out.println("xCoordinateInput");
-//		userInputCoords.setxCoordNumber(xCoordinateInput);
-//		while (userInputCoords.getxCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setxCoordNumber(scanner.nextInt());
-//		}
-//		while (!scanner.hasNextInt()||scanner.nextInt() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			
-//		}
-//		userInputCoords.setxCoordNumber(scanner.nextInt());
-//		System.out.println("please enter the Y coordinate: ");
-//		userInputCoords.setyCoordNumber(scanner.nextInt());
-//		while (userInputCoords.getyCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setyCoordNumber(scanner.nextInt());
-//		}
-
+	}
+	
 	public void processUserInput(GameData gameData, UserInputCoords userInputCoords, Scanner scanner) {
 		while (gameData.getLeftLengthOfFilledGrid() > 10) {
 			validateUserInputCordinates(userInputCoords, scanner);
