@@ -11,7 +11,7 @@ public class FilledCellsGenerator {
 			for(int j=1;j<=filledGrid.getYSize();j++) {
 				Cell cell= new Cell(i,j);
 				if(filledGrid.getBombs().contains(i+"-"+j)) {
-					cell.setContent("_x|");
+					cell.setContent("x");
 					cells[i-1][j-1]=cell;
 					filledGrid.getAllCells().add(cell);
 					continue;
@@ -41,7 +41,7 @@ public class FilledCellsGenerator {
 				if(filledGrid.getBombs().contains((i+1)+"-"+(j+1))) {
 					k++;
 				}
-				cell.setContent("_"+k+"|");
+				cell.setContent(k+"");
 //				System.out.println(cell);
 				cells[i-1][j-1]=cell;
 				filledGrid.getAllCells().add(cell);
