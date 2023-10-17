@@ -201,6 +201,7 @@ public class GameService {
 			gameData.setFilledGrid(new FilledGrid());
 			gameData.setEmptyGridCells();
 			gameData.setFilledGridCells();
+			gameData.setLeftLengthOfFilledGrid(gameData.getEmptyGrid().getXSize()*gameData.getEmptyGrid().getYSize());
 			showGrid(gameData.getEmptyGrid());
 			processUserInput(gameData, userInputCoords, scanner);
 			continueGameOrNot(scanner, exitGameController);		
