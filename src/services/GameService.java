@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.StreamHandler;
 
@@ -55,20 +56,81 @@ public class GameService {
 		}
 	}
 
+//	public void validateUserInputCordinates(UserInputCoords userInputCoords, Scanner scanner) {
+//		System.out.println("please enter the X coordinate: ");
+//		userInputCoords.setxCoordNumber(scanner.nextInt());
+//		while (userInputCoords.getxCoordNumber() > 10) {
+//			System.out.println("Coordinate must be between 1-10, please re-enter");
+//			userInputCoords.setxCoordNumber(scanner.nextInt());
+//		}
+//		System.out.println("please enter the Y coordinate: ");
+//		userInputCoords.setyCoordNumber(scanner.nextInt());
+//		while (userInputCoords.getyCoordNumber() > 10) {
+//			System.out.println("Coordinate must be between 1-10, please re-enter");
+//			userInputCoords.setyCoordNumber(scanner.nextInt());
+//		}
+//	}
+	
 	public void validateUserInputCordinates(UserInputCoords userInputCoords, Scanner scanner) {
-		System.out.println("please enter the X coordinate: ");
-		userInputCoords.setxCoordNumber(scanner.nextInt());
-		while (userInputCoords.getxCoordNumber() > 10) {
-			System.out.println("Coordinate must be between 1-10, please re-enter");
-			userInputCoords.setxCoordNumber(scanner.nextInt());
+		int xCoordinateInput;
+		int yCoordinateInput;
+		boolean xDone = false;
+		do{
+			try{
+				System.out.println("please enter the X coordinate: ");
+				xCoordinateInput = scanner.nextInt();
+				if(xCoordinateInput<=10&&xCoordinateInput>=1) {
+					userInputCoords.setxCoordNumber(xCoordinateInput);
+					xDone = true;
+				}else {
+					System.out.println("Coordinate must be integer between 1-10");
+				}
+			}catch (InputMismatchException e){
+				System.out.println("Coordinate must be integer between 1-10");
+				scanner.next();
+			}
+		} while (xDone == false);
+		boolean yDone = false;
+		do{
+			try{
+				System.out.println("please enter the Y coordinate: ");
+				yCoordinateInput = scanner.nextInt();
+				if(yCoordinateInput<=10&&yCoordinateInput>=1) {
+					userInputCoords.setyCoordNumber(yCoordinateInput);
+					yDone = true;
+				}else {
+					System.out.println("Coordinate must be integer between 1-10");
+				}
+			}catch (InputMismatchException e){
+				System.out.println("Coordinate must be integer between 1-10");
+				scanner.next();
+			}
+		} while (yDone == false);
+//		userInputCoords.setxCoordNumber(xCoordinate);
+//		while((!scanner.hasNextInt())||scanner.nextInt() > 10||scanner.nextInt() < 1) {
+//			System.out.println("Coordinate must be between 1-10, please re-enter");
+//			scanner.nextInt();
+//			System.out.println("test1");
 		}
-		System.out.println("please enter the Y coordinate: ");
-		userInputCoords.setyCoordNumber(scanner.nextInt());
-		while (userInputCoords.getyCoordNumber() > 10) {
-			System.out.println("Coordinate must be between 1-10, please re-enter");
-			userInputCoords.setyCoordNumber(scanner.nextInt());
-		}
-	}
+//		System.out.println("test2");
+//		int xCoordinateInput=scanner.nextInt();
+//		System.out.println("xCoordinateInput");
+//		userInputCoords.setxCoordNumber(xCoordinateInput);
+//		while (userInputCoords.getxCoordNumber() > 10) {
+//			System.out.println("Coordinate must be between 1-10, please re-enter");
+//			userInputCoords.setxCoordNumber(scanner.nextInt());
+//		}
+//		while (!scanner.hasNextInt()||scanner.nextInt() > 10) {
+//			System.out.println("Coordinate must be between 1-10, please re-enter");
+//			
+//		}
+//		userInputCoords.setxCoordNumber(scanner.nextInt());
+//		System.out.println("please enter the Y coordinate: ");
+//		userInputCoords.setyCoordNumber(scanner.nextInt());
+//		while (userInputCoords.getyCoordNumber() > 10) {
+//			System.out.println("Coordinate must be between 1-10, please re-enter");
+//			userInputCoords.setyCoordNumber(scanner.nextInt());
+//		}
 
 	public void processUserInput(GameData gameData, UserInputCoords userInputCoords, Scanner scanner) {
 		while (gameData.getLeftLengthOfFilledGrid() > 10) {
