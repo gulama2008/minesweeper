@@ -41,9 +41,20 @@ public class GameService {
 					if(j==0) {
 						System.out.print(Utils.formatString(i+"|"));
 					}else if (j==10) {
-						System.out.println(Utils.formatString(grid.getCells()[i-1][j-1].getContent()));
+						if (" ".equals(grid.getCells()[i-1][j-1].getContent())) {
+							System.out.println(Utils.formatString("__|"));
+							
+						}else {
+							System.out.println(Utils.formatString("_"+grid.getCells()[i-1][j-1].getContent()+"|"));
+						}
+						
 					}else {
-						System.out.print(Utils.formatString(grid.getCells()[i-1][j-1].getContent()));
+						if (" ".equals(grid.getCells()[i-1][j-1].getContent())) {
+							System.out.print(Utils.formatString("__|"));
+							
+						}else {
+							System.out.print(Utils.formatString("_"+grid.getCells()[i-1][j-1].getContent()+"|"));
+						}
 					}
 				}
 			}
@@ -69,22 +80,74 @@ public class GameService {
 	
 
 	public void processUserInput(GameData gameData,UserInputCoords userInputCoords,Scanner scanner) {
-		int leftLengthOfFilledGrid=gameData.getFilledGrid().getXSize()*gameData.getFilledGrid().getYSize();
-		while (leftLengthOfFilledGrid>10) {
+//		int leftLengthOfFilledGrid=gameData.getFilledGrid().getXSize()*gameData.getFilledGrid().getYSize();
+		while (gameData.getLeftLengthOfFilledGrid()>10) {
 			validateUserInputCordinates(userInputCoords, scanner);
 			String viewContent =gameData.getFilledGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].getContent();
 			gameData.getEmptyGrid().getCells()[userInputCoords.getyCoordNumber()-1][userInputCoords.getxCoordNumber()-1].setContent(viewContent);
-			if(viewContent.equals("_x|")) {
+			if(viewContent.equals("x")) {
 				System.out.println("Game Over!");
 				showGrid(gameData.getFilledGrid());
 				return;
 			}
-				showGrid(gameData.getEmptyGrid());
-				leftLengthOfFilledGrid-=1;
+//				showGrid(gameData.getEmptyGrid());
+//				gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
+			int currentXCoordinate=userInputCoords.getxCoordNumber();
+			int currentYCoordinate=userInputCoords.getyCoordNumber();
+			cascadingNoBombCell(gameData, currentXCoordinate,currentYCoordinate);
+			showGrid(gameData.getEmptyGrid());
 		}
 		System.out.println("Congratulations! You Won!");
-		showGrid(gameData.getFilledGrid());
+//		showGrid(gameData.getFilledGrid());
 	}
+	
+//	public void cascadingNoBombCell(GameData gameData, UserInputCoords userInputCoords) {
+	public void cascadingNoBombCell(GameData gameData, int currentXCoordinate,int currentYCoordinate) {	
+		String viewContent =gameData.getFilledGrid().getCells()[currentYCoordinate-1][currentXCoordinate-1].getContent();
+		gameData.getEmptyGrid().getCells()[currentYCoordinate-1][currentXCoordinate-1].setContent(viewContent);
+//		if(viewContent.equals("x")) {
+//			System.out.println("Game Over!");
+//			showGrid(gameData.getFilledGrid());
+//			return;
+//		}
+		
+		if("0".equals(viewContent)) {
+			gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
+				if(currentYCoordinate-1>=0&&currentXCoordinate-2>=0&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate-1][currentXCoordinate-2].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate-1, currentYCoordinate);
+				}
+				if(currentYCoordinate-2>=0&&currentXCoordinate-2>=0&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate-2][currentXCoordinate-2].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate-1, currentYCoordinate-1);
+				}
+				if(currentYCoordinate-2>=0&&currentXCoordinate-1>=0&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate-2][currentXCoordinate-1].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate, currentYCoordinate-1);
+				}
+			
+				if(currentYCoordinate-2>=0&&currentXCoordinate+1<=10&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate-2][currentXCoordinate].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate+1, currentYCoordinate-1);
+				}
+			
+				if(currentYCoordinate+1<=10&&currentXCoordinate-2>=0&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate][currentXCoordinate-2].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate-1, currentYCoordinate+1);
+				}
+			
+				if(currentYCoordinate+1<=10&&currentXCoordinate-1>=0&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate][currentXCoordinate-1].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate, currentYCoordinate+1);
+				}
+				if(currentYCoordinate-1>=0&&currentXCoordinate+1<=10&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate-1][currentXCoordinate].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate+1, currentYCoordinate);
+				}
+				if(currentYCoordinate+1<=10&&currentXCoordinate+1<=10&&" ".equals(gameData.getEmptyGrid().getCells()[currentYCoordinate][currentXCoordinate].getContent()) ) {
+					cascadingNoBombCell(gameData, currentXCoordinate+1, currentYCoordinate+1);	
+				}		
+
+		}else {
+			gameData.setLeftLengthOfFilledGrid(gameData.getLeftLengthOfFilledGrid()-1);
+			
+		}
+		
+	}
+	
 	
 	public void continueGameOrNot(Scanner scanner, ExitGameController exitGameController) {
 		System.out.println("Do you want to play another game? Y/N");

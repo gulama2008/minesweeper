@@ -10,7 +10,7 @@ public class EmptyCellsGenerator {
 		for(int i=1;i<=emptyGrid.getXSize();i++) {
 			for(int j=1;j<=emptyGrid.getYSize();j++) {
 				Cell cell= new Cell(i,j);
-				cell.setContent("__|");
+				cell.setContent(" ");
 				cells[i-1][j-1]=cell;
 			}	
 		}

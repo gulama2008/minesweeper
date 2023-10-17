@@ -10,18 +10,21 @@ public class GameData {
 	private EmptyGrid emptyGrid;
 	private FilledGrid filledGrid;
 	private ArrayList<Cell> allCells;
+	private int leftLengthOfFilledGrid;
 	
 
 	public GameData(EmptyGrid emptyGrid, FilledGrid filledGrid) {
-	this.emptyGrid = emptyGrid;
-	Cell[][] cellsForEmptyGrid=EmptyCellsGenerator.createCells(this.emptyGrid);
-	this.emptyGrid.setCells(cellsForEmptyGrid);
+		this.emptyGrid = emptyGrid;
+		Cell[][] cellsForEmptyGrid=EmptyCellsGenerator.createCells(this.emptyGrid);
+		this.emptyGrid.setCells(cellsForEmptyGrid);
+		
+		this.filledGrid = filledGrid;
+		Cell[][] cellsForFilledGrid=FilledCellsGenerator.createCells(this.filledGrid);
+		this.filledGrid.setCells(cellsForFilledGrid);
+		
+		this.leftLengthOfFilledGrid=this.getFilledGrid().getXSize()*this.getFilledGrid().getYSize();
 	
-	this.filledGrid = filledGrid;
-	Cell[][] cellsForFilledGrid=FilledCellsGenerator.createCells(this.filledGrid);
-	this.filledGrid.setCells(cellsForFilledGrid);
-	
-}
+	}
 
 	public EmptyGrid getEmptyGrid() {
 		return emptyGrid;
@@ -46,8 +49,16 @@ public class GameData {
 	public void setAllCells(ArrayList<Cell> allCells) {
 		this.allCells = allCells;
 	}
-
 	
+	
+	public int getLeftLengthOfFilledGrid() {
+		return leftLengthOfFilledGrid;
+	}
+
+	public void setLeftLengthOfFilledGrid(int leftLengthOfFilledGrid) {
+		this.leftLengthOfFilledGrid = leftLengthOfFilledGrid;
+	}
+
 	public void setEmptyGridCells() {
 		Cell[][] cellsForEmptyGrid=EmptyCellsGenerator.createCells(this.emptyGrid);
 		this.emptyGrid.setCells(cellsForEmptyGrid);
