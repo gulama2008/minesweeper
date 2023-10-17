@@ -1,8 +1,8 @@
 package pojo;
 
 public class ExitGameController {
-	
-	private boolean isExitGame=false;
+
+	private boolean isExitGame = false;
 
 	public ExitGameController(boolean isExitGame) {
 		super();
@@ -16,7 +16,5 @@ public class ExitGameController {
 	public void setIsExitGame(boolean isExitGame) {
 		this.isExitGame = isExitGame;
 	}
-	
-	
 
 }
