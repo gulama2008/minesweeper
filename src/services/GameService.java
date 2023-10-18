@@ -14,6 +14,18 @@ import pojo.Grid;
 import pojo.UserInputCoords;
 
 public class GameService {
+	
+	public static final String RESET = "\u001B[0m";
+	public static final String RED_TEXT = "\u001B[31m";
+	public static final String GREEN_TEXT = "\u001B[32m";
+	public static final String YELLOW_TEXT = "\u001B[33m";
+	public static final String BLACK_BG = "\u001B[40m";
+	public static final String WHITE_BG = "\u001B[47m";
+	public static final String BRIGHT_BLACK_TEXT="\u001b[30;1m";
+	public static final String BRIGHT_BLUE_TEXT="\u001b[34;1m"; 
+	public static final String BRIGHT_GREEN_TEXT="\u001b[32;1m";
+	public static final String BRIGHT_RED_TEXT="\u001b[31;1m";
+
 
 	public void initializeGame(Scanner scanner) {
 		System.out.printf("-----------------------------------------%n");
@@ -25,51 +37,38 @@ public class GameService {
 		}
 	}
 
-	public void showGrid(Grid grid) {
+	public void showGrid(Grid grid,boolean isWin) {
 		int rows = 10;
 		int columns = 10;
-
+		System.out.println();
 		for (int i = 0; i <= rows; i++) {
 			if (i == 0) {
-				System.out.print(Utils.formatString("  "));
+				System.out.print(WHITE_BG+Utils.formatString("  ")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print(" " + j + "  ");
+					System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+" " + j + "  "+ RESET);
 				}
-				System.out.println(" 10 ");
-				System.out.print(Utils.formatString("  +"));
+				System.out.println(BRIGHT_BLACK_TEXT + WHITE_BG+" 10  "+ RESET);
+				System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+Utils.formatString("  +")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print("---+");
+					System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+"---+"+ RESET);
 				}
-				System.out.println("---+");
+				System.out.println(BRIGHT_BLACK_TEXT + WHITE_BG+"---+ "+ RESET);
 			} else {
-				System.out.print(Utils.formatString(i + " |"));
+				System.out.print(BRIGHT_BLACK_TEXT+ WHITE_BG+Utils.formatString(i + " |")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print(" " + grid.getCells()[i - 1][j - 1].getContent() + " |");
+//					System.out.print(GREEN_TEXT + WHITE_BG+" " + grid.getCells()[i - 1][j - 1].getContent() + BRIGHT_BLACK_TEXT+" |"+ RESET);
+					System.out.print(WHITE_BG+" " + Utils.coloredString(grid.getCells()[i - 1][j - 1].getContent(),isWin) + BRIGHT_BLACK_TEXT+" |"+ RESET);
 				}
-				System.out.println(" " + grid.getCells()[i - 1][9].getContent() + " |");
-				System.out.print(Utils.formatString("  +"));
+				System.out.println(GREEN_TEXT + WHITE_BG+" " + Utils.coloredString(grid.getCells()[i - 1][9].getContent(),isWin) + BRIGHT_BLACK_TEXT+" | "+ RESET);
+				System.out.print(BRIGHT_BLACK_TEXT+ WHITE_BG+Utils.formatString("  +")+ RESET);
 				for (int j = 1; j < columns; j++) {
-					System.out.print("---+");
+					System.out.print(BRIGHT_BLACK_TEXT + WHITE_BG+"---+"+ RESET);
 				}
-				System.out.println("---+");
+				System.out.println(BRIGHT_BLACK_TEXT + WHITE_BG+"---+ "+ RESET);
 			}
 		}
+		System.out.println();
 	}
-
-//	public void validateUserInputCordinates(UserInputCoords userInputCoords, Scanner scanner) {
-//		System.out.println("please enter the X coordinate: ");
-//		userInputCoords.setxCoordNumber(scanner.nextInt());
-//		while (userInputCoords.getxCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setxCoordNumber(scanner.nextInt());
-//		}
-//		System.out.println("please enter the Y coordinate: ");
-//		userInputCoords.setyCoordNumber(scanner.nextInt());
-//		while (userInputCoords.getyCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setyCoordNumber(scanner.nextInt());
-//		}
-//	}
 	
 	public void validateUserInputCordinates(UserInputCoords userInputCoords, Scanner scanner) {
 		int xCoordinateInput;
@@ -106,32 +105,8 @@ public class GameService {
 				scanner.next();
 			}
 		} while (yDone == false);
-//		userInputCoords.setxCoordNumber(xCoordinate);
-//		while((!scanner.hasNextInt())||scanner.nextInt() > 10||scanner.nextInt() < 1) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			scanner.nextInt();
-//			System.out.println("test1");
-		}
-//		System.out.println("test2");
-//		int xCoordinateInput=scanner.nextInt();
-//		System.out.println("xCoordinateInput");
-//		userInputCoords.setxCoordNumber(xCoordinateInput);
-//		while (userInputCoords.getxCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setxCoordNumber(scanner.nextInt());
-//		}
-//		while (!scanner.hasNextInt()||scanner.nextInt() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			
-//		}
-//		userInputCoords.setxCoordNumber(scanner.nextInt());
-//		System.out.println("please enter the Y coordinate: ");
-//		userInputCoords.setyCoordNumber(scanner.nextInt());
-//		while (userInputCoords.getyCoordNumber() > 10) {
-//			System.out.println("Coordinate must be between 1-10, please re-enter");
-//			userInputCoords.setyCoordNumber(scanner.nextInt());
-//		}
-
+	}
+	
 	public void processUserInput(GameData gameData, UserInputCoords userInputCoords, Scanner scanner) {
 		while (gameData.getLeftLengthOfFilledGrid() > 10) {
 			validateUserInputCordinates(userInputCoords, scanner);
@@ -140,17 +115,19 @@ public class GameService {
 			gameData.getEmptyGrid().getCells()[userInputCoords.getyCoordNumber() - 1][userInputCoords.getxCoordNumber()
 					- 1].setContent(viewContent);
 			if (viewContent.equals("x")) {
-				System.out.println("Game Over!");
-				showGrid(gameData.getFilledGrid());
+				System.out.println(BRIGHT_RED_TEXT+"Game Over!");
+				showGrid(gameData.getFilledGrid(),false);
 				return;
 			}
 			int currentXCoordinate = userInputCoords.getxCoordNumber();
 			int currentYCoordinate = userInputCoords.getyCoordNumber();
 			cascadingNoBombCell(gameData, currentXCoordinate, currentYCoordinate);
-			showGrid(gameData.getEmptyGrid());
+			showGrid(gameData.getEmptyGrid(),true);
 		}
-		System.out.println("Congratulations! You Won!");
-		showGrid(gameData.getFilledGrid());
+		System.out.println(BRIGHT_GREEN_TEXT+"Congratulations! You Won!");
+		System.out.println();
+//		showGrid(gameData.getFilledGrid());
+		showGrid(gameData.getFilledGrid(),true);
 	}
 
 	public void cascadingNoBombCell(GameData gameData, int currentXCoordinate, int currentYCoordinate) {
@@ -218,7 +195,7 @@ public class GameService {
 			gameData.setEmptyGridCells();
 			gameData.setFilledGridCells();
 			gameData.setLeftLengthOfFilledGrid(gameData.getEmptyGrid().getXSize() * gameData.getEmptyGrid().getYSize());
-			showGrid(gameData.getEmptyGrid());
+			showGrid(gameData.getEmptyGrid(),true);
 			processUserInput(gameData, userInputCoords, scanner);
 			continueGameOrNot(scanner, exitGameController);
 		}
