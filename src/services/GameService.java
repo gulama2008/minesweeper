@@ -180,11 +180,20 @@ public class GameService {
 	}
 
 	public void continueGameOrNot(Scanner scanner, ExitGameController exitGameController) {
-		System.out.println(BRIGHT_YELLOW_TEXT+"Do you want to play another game? Y/N");
-		String userChoice = scanner.next().toUpperCase();
-		if (userChoice.equals("N")) {
-			exitGameController.setIsExitGame(true);
-		}
+		boolean isInvalidInput=true;	
+		do {
+			System.out.println(BRIGHT_YELLOW_TEXT+"Do you want to play another game? Y/N");
+			String userChoice = scanner.next().toUpperCase();
+			if (userChoice.equals("N")) {
+				isInvalidInput=false;
+				exitGameController.setIsExitGame(true);
+				return;
+			}else if(userChoice.equals("Y")){
+				isInvalidInput=false;
+				return;
+			}
+			System.out.println(BRIGHT_RED_TEXT +"Please enter Y or N only");
+		} while (isInvalidInput);	
 	}
 
 	public void playGame(GameData gameData, UserInputCoords userInputCoords, Scanner scanner,
