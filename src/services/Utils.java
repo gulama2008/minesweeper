@@ -6,7 +6,7 @@ public class Utils {
 		return String.format("%5s", s);
 	}
 	
-	public static String coloredString(String s) {
+	public static String coloredString(String s,boolean isWin) {
 		String RESET = "\u001B[0m";
         String RED_TEXT = "\u001B[31m";
         String GREEN_TEXT = "\u001B[32m";
@@ -18,11 +18,25 @@ public class Utils {
         String BRIGHT_GREEN_TEXT="\u001b[32;1m";
         String GRAY_TEXT="\u001b[38;5;242m";
         String RED_BG="\u001b[41m";
+        String BRIGHT_YELLOW_TEXT="\u001b[33;1m";
 		String coloredString="";
+		
+		if(isWin) {
+			if("x".equals(s)) {
+				coloredString=BRIGHT_YELLOW_TEXT+"x";
+				return coloredString;
+			}
+		}else {
+			if("x".equals(s)) {
+				coloredString=RED_BG+BRIGHT_BLACK_TEXT+"x";
+				return coloredString;
+			}
+		}
 		
 		switch (s) {
 		case "0":{
 			coloredString=GRAY_TEXT+"0";
+			
 			break;
 		}
 		case "1": {
@@ -34,10 +48,10 @@ public class Utils {
 			coloredString=BRIGHT_GREEN_TEXT+"2";
 			break;
 		}
-		case "x":{
-			coloredString=RED_BG+BRIGHT_BLACK_TEXT+"x";
-			break;
-		}
+//		case "x":{
+//			coloredString=RED_BG+BRIGHT_BLACK_TEXT+"x";
+//			break;
+//		}
 		default:
 			coloredString=RED_TEXT+s;
 		}
