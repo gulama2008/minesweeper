@@ -118,8 +118,8 @@ public class GameService {
 			gameData.getEmptyGrid().getCells()[userInputCoords.getyCoordNumber() - 1][userInputCoords.getxCoordNumber()
 					- 1].setContent(viewContent);
 			if (viewContent.equals("x")) {
-				System.out.println(BRIGHT_RED_TEXT + "Game Over!");
 				showGrid(gameData.getFilledGrid(), false);
+				System.out.println(BRIGHT_RED_TEXT + "Game Over!");
 				return;
 			}
 			int currentXCoordinate = userInputCoords.getxCoordNumber();
@@ -127,8 +127,9 @@ public class GameService {
 			cascadingNoBombCell(gameData, currentXCoordinate, currentYCoordinate);
 			showGrid(gameData.getEmptyGrid(), true);
 		}
-		System.out.println(BRIGHT_GREEN_TEXT + "Congratulations! You Won!");
 		showGrid(gameData.getFilledGrid(), true);
+		System.out.println(BRIGHT_GREEN_TEXT + "Congratulations! You Won!");
+		
 	}
 
 	public void cascadingNoBombCell(GameData gameData, int currentXCoordinate, int currentYCoordinate) {
