@@ -61,7 +61,7 @@ With this project I will practice how to:
 ![win](./src/image/7.jpg)
 - After the game won or lost, the user will be asked if they want to play another game by enter Y or N, if they enter Y or y, there will be a new game shown; If they enter N or n, there will be a thanks for playing message shown; and if they enter anything else other than y or n, there will be a message hightlighted in red indicate that they can enter y or n only and re-asked if they want to play another game:  
 ![finish](./src/image/8.jpg)
-- The code is desinged and structured by it's nature of pojo or business logic
+- The code is desinged and structured by it's nature of pojo or business logic, and is strictly following the single-responsibility principle
 
 ## Known Issues  
 - Repeating of codes. for instance, the validations of coodinate of X and Y entered by the user are quite similar, perhaps need to write one method and reuse it by passing x and y as params
